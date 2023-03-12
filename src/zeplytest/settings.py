@@ -9,23 +9,35 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
 from pathlib import Path
+
+from decouple import AutoConfig
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+config = AutoConfig(BASE_DIR)
+
+load_dotenv(BASE_DIR / ".env")
+load_dotenv(BASE_DIR / ".env.defaults")
+if config("IS_COMPOSE", cast=bool, default=False):
+    load_dotenv(BASE_DIR / ".env.compose")
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-tys)dt3k9npsd3)8=e-suc-f0^(6rjbm%yb+t1bbv4icr&fwc9"
+SECRET_KEY = config("SECRET_KEY")
+
+CRYPTOGRAPHY_KEY = config("CRYPTOGRAPHY_KEY")
+CRYPTOGRAPHY_SALT = config("CRYPTOGRAPHY_SALT")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -37,10 +49,14 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # project apps
+    "apps.addresses",
+    "apps.wallets",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -75,9 +91,13 @@ WSGI_APPLICATION = "zeplytest.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": config("DB_NAME", "zeplytest"),
+        "USER": config("DB_USER", "zeplytest"),
+        "PASSWORD": config("DB_PASSWORD", "password"),
+        "HOST": config("DB_HOST", "localhost"),
+        "PORT": "",
+    },
 }
 
 
@@ -116,8 +136,16 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "static_root"
+
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Project settings
+
+XRP_LEDGER_URL = config("XRP_LEDGER_URL")

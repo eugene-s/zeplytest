@@ -1,0 +1,31 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: zeplytest
+      POSTGRES_DB: zeplytest
+    volumes:
+      - /var/lib/postgresql
+
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: production
+    environment:
+      IS_COMPOSE: "true"
+    ports:
+      - "8000:8000"
+
+  development:
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    environment:
+      IS_COMPOSE: "true"
+    ports:
+      - "8000:8000"
