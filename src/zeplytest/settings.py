@@ -96,7 +96,7 @@ DATABASES = {
         "USER": config("DB_USER", "zeplytest"),
         "PASSWORD": config("DB_PASSWORD", "password"),
         "HOST": config("DB_HOST", "localhost"),
-        "PORT": "",
+        "PORT": config("", "5432"),
     },
 }
 

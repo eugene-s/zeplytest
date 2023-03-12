@@ -7,6 +7,8 @@ services:
       POSTGRES_PASSWORD: password
       POSTGRES_USER: zeplytest
       POSTGRES_DB: zeplytest
+    ports:
+      - "5432:5432"
     volumes:
       - /var/lib/postgresql
 
@@ -15,6 +17,8 @@ services:
       dockerfile: Dockerfile
       context: .
       target: production
+    depends_on:
+      - postgres
     environment:
       IS_COMPOSE: "true"
     ports:
@@ -25,6 +29,8 @@ services:
       dockerfile: Dockerfile
       context: .
       target: development
+    depends_on:
+      - postgres
     environment:
       IS_COMPOSE: "true"
     ports:

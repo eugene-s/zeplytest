@@ -1,0 +1,32 @@
+POST http://localhost:8000/api/v1/wallets/
+Accept: application/json
+
+###
+
+GET http://localhost:8000/api/v1/wallets/
+Accept: application/json
+
+###
+
+POST http://localhost:8000/api/v1/addresses/
+Accept: application/json
+
+{"wallet": 1, "network": "BTC"}
+
+###
+
+POST http://localhost:8000/api/v1/addresses/
+Accept: application/json
+
+{"wallet": 1, "network": "XRP"}
+
+###
+
+POST http://localhost:8000/api/v1/addresses/
+Accept: application/json
+
+{"wallet": 1, "network": "ETH"}
+
+###
+
+GET http://localhost:8000/api/v1/addresses/
