@@ -21,6 +21,7 @@ factory-boy = "^3.2.1"
 gunicorn = "^20.1.0"
 whitenoise = "^6.4.0"
 psycopg2-binary = "^2.9.5"
+drf-spectacular = {extras = ["sidecar"], version = "^0.26.0"}
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.2.2"

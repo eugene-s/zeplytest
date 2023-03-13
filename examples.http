@@ -30,3 +30,7 @@ Accept: application/json
 ###
 
 GET http://localhost:8000/api/v1/addresses/
+
+###
+
+GET http://localhost:8000/api/v1/addresses/1/

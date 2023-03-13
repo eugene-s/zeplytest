@@ -2,7 +2,7 @@ from rest_framework import mixins as _m
 from rest_framework import viewsets as _v
 
 from .models import Address
-from .serializers import AddressCreateSerializer, AddressSerializer
+from .serializers import AddressCreateSerializer, AddressListSerializer, AddressSerializer
 
 __all__ = ("AddressViewSet",)
 
@@ -18,4 +18,6 @@ class AddressViewSet(
     def get_serializer_class(self):
         if self.action == "create":
             return AddressCreateSerializer
+        if self.action == "list":
+            return AddressListSerializer
         return AddressSerializer

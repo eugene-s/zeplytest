@@ -28,7 +28,8 @@ FROM python as production
 
 COPY src /code
 
-ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0 --workers 3"
+ENV GUNICORN_CMD_ARGS="--bind=0.0.0.0 --workers 3" \
+    DJANGO_SETTINGS_MODULE=zeplytest.settings
 
 CMD ["python", "-m", "gunicorn", "zeplytest.wsgi"]
 

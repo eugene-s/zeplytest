@@ -5,6 +5,12 @@ from .backend import AddressCreator
 from .models import Address
 
 
+class AddressListSerializer(s.ModelSerializer):
+    class Meta:
+        model = Address
+        fields = ("pk",)
+
+
 class AddressSerializer(s.ModelSerializer):
     class Meta:
         model = Address
