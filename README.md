@@ -12,6 +12,7 @@
 ### Run from Docker
 
 ```bash
+docker compose build app  # build application
 docker compose up migrate  # run migrations
 docker compose up -d app  # run app
 ```

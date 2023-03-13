@@ -1,7 +1,6 @@
 import abc
 from dataclasses import dataclass
 
-from apps.addresses.models import Address
 from apps.networks.types import SupportedNetwork
 from apps.wallets.models import Wallet
 
